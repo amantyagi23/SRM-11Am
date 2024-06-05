@@ -15,8 +15,10 @@ public class DiceBoard {
 
         for (int i = 1; i <= 6; i++) {
 
-            if (currSum + i <= endvalue) {
-                diceBoard(currSum + i, endvalue, result + i);
+            currSum = currSum + i;
+            if (currSum <= endvalue) {
+                diceBoard(currSum, endvalue, result + i);
+                currSum = currSum - i;
             }
         }
     }
