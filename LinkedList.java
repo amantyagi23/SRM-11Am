@@ -19,6 +19,21 @@ public class LinkedList {
 
     // insertion
 
+    void insertionAtHead(int data) {
+
+        Node newNode = new Node(data);
+
+        if (head == null) {
+            head = newNode;
+            return;
+        }
+
+        newNode.next = head;
+
+        head = newNode;
+
+    }
+
     void insertionAtEnd(int data) {
         Node newNode = new Node(data);
 
