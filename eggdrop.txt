@@ -1,0 +1,29 @@
+static int eggDrop(int eggs, int floors) 
+	{
+	    // Your code here
+	     int[][] dp = new int[eggs + 1][floors + 1];
+
+        // If there is one egg, we need to do `floors` trials (worst case)
+        for (int i = 1; i <= floors; i++) {
+            dp[1][i] = i;
+        }
+
+        // If there are no floors, 0 trials are needed. If there is one floor, 1 trial is needed.
+        for (int i = 1; i <= eggs; i++) {
+            dp[i][0] = 0;
+            dp[i][1] = 1;
+        }
+
+        // Fill the rest of the dp table
+        for (int e = 2; e <= eggs; e++) {
+            for (int f = 2; f <= floors; f++) {
+                dp[e][f] = Integer.MAX_VALUE;
+                for (int k = 1; k <= f; k++) {
+                    int res = 1 + Math.max(dp[e - 1][k - 1], dp[e][f - k]);
+                    dp[e][f] = Math.min(dp[e][f], res);
+                }
+            }
+        }
+
+        return dp[eggs][floors];
+	}

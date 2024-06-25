@@ -1,0 +1,45 @@
+class Meeting {
+    int start;
+    int end;
+
+    Meeting(int start, int end) {
+        this.start = start;
+        this.end = end;
+    }
+}
+
+class MeetingComparator implements Comparator<Meeting> {
+    @Override
+    public int compare(Meeting m1, Meeting m2) {
+        return m1.end - m2.end;
+    }
+}
+
+
+class Solution 
+{
+    //Function to find the maximum number of meetings that can
+    //be performed in a meeting room.
+    public static int maxMeetings(int start[], int end[], int n)
+    {
+        Meeting[] meetings = new Meeting[n];
+        
+        for (int i = 0; i < n; i++) {
+            meetings[i] = new Meeting(start[i], end[i]);
+        }
+
+        Arrays.sort(meetings, new MeetingComparator());
+
+        int count = 1;  // Always select the first meeting
+        int lastEndTime = meetings[0].end;
+
+        for (int i = 1; i < n; i++) {
+            if (meetings[i].start > lastEndTime) {
+                count++;
+                lastEndTime = meetings[i].end;
+            }
+        }
+
+        return count;
+    }
+}
